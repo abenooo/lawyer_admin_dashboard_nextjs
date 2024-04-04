@@ -1,7 +1,20 @@
-import React, { ReactNode } from "react";
+'use client'
+import { useSideBarToggle } from '@/hooks/use-sidebar-toggle';
+import classNames from 'classnames';
+import { ReactNode } from 'react';
 
-const Pagewrapper = ({ children }: { children: ReactNode }) => {
-  return <div>{children}</div>;
-};
+export default function PageWrapper({ children }: { children: ReactNode }) {
+    
+    const { toggleCollapse } = useSideBarToggle();
+    const bodyStyle = classNames("bg-background flex flex-col mt-16 py-4 p-4 h-full overflow-y-auto",
+        {
+            ["sm:pl-[21rem]"]: !toggleCollapse,
+            ["sm:pl-[6.4rem]"]: toggleCollapse,
+        });
 
-export default Pagewrapper;
+    return (
+        <div className={bodyStyle}>
+            {children}
+        </div>
+    );
+}
