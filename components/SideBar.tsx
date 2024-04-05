@@ -6,7 +6,7 @@ import { useSideBarToggle } from "@/hooks/use-sidebar-toggle";
 import SideBarMenuGroup from "./sidebar-menu-group";
 import { SideBarLogo } from "./sidebar-logo";
 
-export default function SideBar() {
+export default function SideBarrr() {
   const [mounted, setMounted] = useState(false);
   const { toggleCollapse } = useSideBarToggle();
 
