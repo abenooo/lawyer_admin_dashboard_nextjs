@@ -17,13 +17,23 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
         title: "Manage",
         menuList: [
             {
-                title: 'Blog',
-                path: '/blog',
+                title: 'Post',
+                path: '/post',
                 icon: <BsKanban size={20} />,
                 submenu: true,
                 subMenuItems: [
-                    { title: 'All', path: '/blog' },
-                    { title: 'New', path: '/blog/new' },
+                    { title: 'All', path: '/post' },
+                    { title: 'New', path: '/post/new' },
+                ],
+            },
+            {
+                title: 'Category',
+                path: '/category',
+                icon: <BsKanban size={20} />,
+                submenu: true,
+                subMenuItems: [
+                    { title: 'All', path: '/category' },
+                    { title: 'New', path: '/category/new' },
                 ],
             },
             {
@@ -47,8 +57,8 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
                 icon: <BsGear size={20} />,
             },
             {
-                title: 'Help',
-                path: '/help',
+                title: 'About us',
+                path: '/about',
                 icon: <BsQuestionCircle size={20} />,
             }
         ]
