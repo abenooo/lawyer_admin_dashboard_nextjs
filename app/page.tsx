@@ -13,7 +13,7 @@ export default function Home() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Revenue
+                Total Category
               </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@ export default function Home() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">15</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -39,7 +39,7 @@ export default function Home() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Subscriptions
+                Total News
               </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ export default function Home() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">350</div>
               <p className="text-xs text-muted-foreground">
                 +180.1% from last month
               </p>
@@ -65,7 +65,7 @@ export default function Home() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">Total blog</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -81,7 +81,7 @@ export default function Home() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
+              <div className="text-2xl font-bold">122</div>
               <p className="text-xs text-muted-foreground">
                 +19% from last month
               </p>
@@ -90,7 +90,7 @@ export default function Home() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Active Now
+                Total user
               </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,9 +106,9 @@ export default function Home() {
               </svg>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
+              <div className="text-2xl font-bold">3</div>
               <p className="text-xs text-muted-foreground">
-                +201 since last hour
+                +21 since last hour
               </p>
             </CardContent>
           </Card>
