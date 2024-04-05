@@ -1,5 +1,5 @@
 import { SideNavItemGroup } from "@/types/type";
-import { BsEnvelope, BsGear, BsHouseDoor, BsKanban, BsListUl, BsQuestionCircle } from "react-icons/bs";
+import { BsEnvelope, BsGear, BsHouseDoor, BsKanban, BsListUl, BsQuestionCircle,BsUpload  } from "react-icons/bs";
 
 
 
@@ -17,13 +17,13 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
         title: "Manage",
         menuList: [
             {
-                title: 'Post',
-                path: '/post',
+                title: 'Blog',
+                path: '/blog',
                 icon: <BsKanban size={20} />,
                 submenu: true,
                 subMenuItems: [
-                    { title: 'All', path: '/post' },
-                    { title: 'New', path: '/post/new' },
+                    { title: 'All', path: '/blog' },
+                    { title: 'New', path: '/blog/new' },
                 ],
             },
             {
@@ -38,7 +38,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
             },
             {
                 title: 'News',
-                path: '/newa',
+                path: '/news',
                 icon: <BsListUl size={20} />,
             },
             {
@@ -52,14 +52,14 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
         title: "Others",
         menuList: [
             {
-                title: 'Account',
-                path: '/account',
+                title: 'Setting',
+                path: '/setting',
                 icon: <BsGear size={20} />,
             },
             {
-                title: 'About us',
-                path: '/about',
-                icon: <BsQuestionCircle size={20} />,
+                title: 'Logout',
+                path: '/logout',
+                icon: <BsUpload size={20} />,
             }
         ]
     }
