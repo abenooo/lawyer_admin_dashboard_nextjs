@@ -12,8 +12,8 @@ const karla = Karla({
   variable: "--font-karla"
 })
 export const metadata: Metadata = {
-  title: "Dz admin dashboard",
-  description: "NextJs admin dashboard created by Sijin Raj"
+  title: "admin dashboard",
+  description: "NextJs admin dashboard created Abenezer kifle"
 };
 
 export default function RootLayout({
