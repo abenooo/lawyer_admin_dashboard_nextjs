@@ -1,7 +1,7 @@
 import { Karla } from 'next/font/google'
 import './globals.css'
-import SideBarrr from '@/components/sidebar';
 import Header  from '@/components/header';
+import SideBar from '@/components/side'
 import PageWrapper from '@/components/pagewrapper';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Metadata } from 'next';
@@ -31,7 +31,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <>
-            <SideBarrr />
+            {/* <SideBarrr /> */}
+            <SideBar />
             <div className="flex flex-col h-full w-full">
               <Header />
               <PageWrapper children={children} />
