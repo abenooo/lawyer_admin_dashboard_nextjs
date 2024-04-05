@@ -13,7 +13,7 @@ const karla = Karla({
 })
 export const metadata: Metadata = {
   title: "admin dashboard",
-  description: "NextJs admin dashboard created Abenezer kifle"
+  description: "NextJs admin dashboard created Abenezer"
 };
 
 export default function RootLayout({
