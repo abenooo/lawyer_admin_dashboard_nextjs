@@ -1,7 +1,7 @@
 import { Karla } from 'next/font/google'
 import './globals.css'
 import Header  from '@/components/header';
-import SideBar from '@/components/side'
+import {SideBar} from '@/components/side'
 import PageWrapper from '@/components/pagewrapper';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Metadata } from 'next';
