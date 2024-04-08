@@ -1,13 +1,18 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Overview } from './components/overview'
-import { RecentSales } from './components/recent-sales'
-import { redirect } from 'next/navigation'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Overview } from "./components/overview";
+import { RecentSales } from "./components/recent-sales";
+import { redirect } from "next/navigation";
 export default function Home() {
   // redirect('/login');
   return (
     <>
-       <h2 className="text-3xl font-bold tracking-tight my-4">Dashboard</h2>
+      <h2 className="text-3xl font-bold tracking-tight my-4">Dashboard</h2>
 
       <div className="flex-1 space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -39,9 +44,7 @@ export default function Home() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total News
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total News</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -90,9 +93,7 @@ export default function Home() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total user
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total user</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -108,9 +109,7 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">
-                1 since last hour
-              </p>
+              <p className="text-xs text-muted-foreground">1 since last hour</p>
             </CardContent>
           </Card>
         </div>
@@ -126,5 +125,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  )
+  );
 }
