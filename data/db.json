@@ -2,6 +2,7 @@
   "recipes": [
     {
       "id": "1",
+      "status":"Done",
       "title": "Veggie Carbonara",
       "image": "veggie_carbonara.jpg",
       "time": "20 minutes",
@@ -12,6 +13,7 @@
     },
     {
       "id": "2",
+      "status":"Done",
       "title": "Veg Stir-Fry",
       "image": "veg_stir_fry.jpg",
       "time": "25 minutes",
@@ -22,6 +24,7 @@
     },
     {
       "id": "3",
+      "status":"Pending",
       "title": "Veg Alfredo",
       "image": "veg_alfredo.jpg",
       "time": "30 minutes",
@@ -32,6 +35,7 @@
     },
     {
       "id": "4",
+      "status":"Deleted",
       "title": "Mushroom Risotto",
       "image": "mushroom_risotto.jpg",
       "time": "40 minutes",
@@ -42,6 +46,7 @@
     },
     {
       "id": "5",
+      "status":"Done",
       "title": "Veg Lentil Soup",
       "image": "veg_lentil_soup.jpg",
       "time": "35 minutes",
@@ -52,6 +57,7 @@
     },
     {
       "id": "6",
+      "status":"Done",
       "title": "Grilled Mushrooms",
       "image": "grilled_mushrooms.jpg",
       "time": "15 minutes",
@@ -62,6 +68,7 @@
     },
     {
       "id": "7",
+      "status":"Done",
       "title": "Roasted Veg Salad",
       "image": "roasted_veg_salad.jpg",
       "time": "30 minutes",
@@ -72,6 +79,7 @@
     },
     {
       "id": "8",
+      "status":"Done",
       "title": "Veggie Tacos",
       "image": "veggie_tacos.jpg",
       "time": "25 minutes",
@@ -82,6 +90,7 @@
     },
     {
       "id": "9",
+      "status":"Done",
       "title": "Chocolate Cookies",
       "image": "chocolate_cookies.jpg",
       "time": "12 minutes",
