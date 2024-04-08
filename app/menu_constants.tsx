@@ -53,7 +53,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
         menuList: [
             {
                 title: 'Setting',
-                path: '/setting',
+                path: '/profile',
                 icon: <BsGear size={20} />,
             },
             {
