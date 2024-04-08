@@ -11,7 +11,7 @@ export function UserNav() {
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-10 w-10">
                         <AvatarImage src="/avatars/02.png" alt="" />
-                        <AvatarFallback>SR</AvatarFallback>
+                        <AvatarFallback>Profile</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
@@ -28,11 +28,11 @@ export function UserNav() {
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
                         Profile
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         Settings
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
