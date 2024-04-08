@@ -27,11 +27,11 @@ export function UserNav() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        Profile
+                      <Link href="profile">Profile</Link>  
                         {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        Settings
+                       <Link href="setting">Settings</Link> 
                         {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
