@@ -37,6 +37,7 @@ interface Recipe {
   vegan: boolean;
   date: string;
   id: string;
+  status:string;
 }
 // async function to get the list of data
 async function getRecipes(): Promise<Recipe[]> {
@@ -63,7 +64,7 @@ async function page() {
           {recipes.map((recipe) => (
             <TableRow key={recipe.id}>
               <TableCell>{recipe.id}</TableCell>
-              <TableCell>{recipe.title}</TableCell>
+              <TableCell>{recipe.status}</TableCell>
               <TableCell>{recipe.title}</TableCell>
               <TableCell>{recipe.description}</TableCell>
               <TableCell>{recipe.date}</TableCell>
