@@ -37,13 +37,13 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
                 ],
             },
             {
-                title: 'News',
-                path: '/news',
+                title: 'News category',
+                path: '/newscategory',
                 icon: <BsListUl size={20} />,
             },
             {
-                title: 'Category',
-                path: '/category',
+                title: 'Blog Category',
+                path: '/blogcategory',
                 icon: <BsEnvelope size={20} />,
             }
         ]
@@ -63,7 +63,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
             },
             {
                 title: 'Logout',
-                path: '/logout',
+                path: '/login',
                 icon: <BsUpload size={20} />,
             }
         ]
