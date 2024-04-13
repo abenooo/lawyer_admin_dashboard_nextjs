@@ -1,6 +1,4 @@
 "use client";
-
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +22,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { changePasswordFormSchema } from "@/validations/changePasswordFormSchema";
+import {changePasswordFormSchema} from "../validations/changePasswordFormSchema";
 
 export function ChangePasswordForm() {
   type ChangePasswordFormValues = z.infer<typeof changePasswordFormSchema>;

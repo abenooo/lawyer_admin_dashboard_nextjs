@@ -1,6 +1,4 @@
-"use client";
-
-import { Icons } from "@/components/icons";
+"use client"
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,8 +22,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { forgotPasswordFormSchema } from "@/validations/forgotPasswordFormSchema";
-
+import {forgotPasswordFormSchema} from "../validations/forgotPasswordFormSchema"
 export function ForgotPasswordForm() {
   type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
 
