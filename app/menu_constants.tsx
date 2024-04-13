@@ -1,5 +1,5 @@
 import { SideNavItemGroup } from "@/types/type";
-import { BsEnvelope, BsGear, BsHouseDoor, BsKanban, BsListUl, BsQuestionCircle,BsUpload  } from "react-icons/bs";
+import { BsGear, BsHouseDoor, BsKanban,BsUpload  } from "react-icons/bs";
 
 
 
@@ -9,7 +9,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
         title: "Dashboards",
         menuList: [{
             title: 'Dashboard',
-            path: '/',
+            path: '/dashboard',
             icon: <BsHouseDoor size={20} />,
         }]
     },
@@ -27,24 +27,34 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
                 ],
             },
             {
-                title: 'Category',
-                path: '/category',
+                title: 'News',
+                path: '/news',
                 icon: <BsKanban size={20} />,
                 submenu: true,
                 subMenuItems: [
-                    { title: 'All', path: '/category' },
-                    { title: 'New', path: '/category/new' },
+                    { title: 'All', path: '/news' },
+                    { title: 'New', path: '/news/new' },
                 ],
             },
             {
-                title: 'News category',
-                path: '/newscategory',
-                icon: <BsListUl size={20} />,
+                title: 'Blog Category',
+                path: '/blogsCategory',
+                icon: <BsKanban size={20} />,
+                submenu: true,
+                subMenuItems: [
+                    { title: 'All', path: '/blogCategory' },
+                    { title: 'New', path: '/blogCategory/new' },
+                ],
             },
             {
-                title: 'Blog Category',
-                path: '/blogcategory',
-                icon: <BsEnvelope size={20} />,
+                title: 'News Category',
+                path: '/newCategory',
+                icon: <BsKanban size={20} />,
+                submenu: true,
+                subMenuItems: [
+                    { title: 'All', path: '/newCategory' },
+                    { title: 'New', path: '/newCategory/new' },
+                ],
             }
         ]
     },

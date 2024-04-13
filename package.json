@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
+    "flatpickr": "^4.6.13",
     "lucide-react": "^0.308.0",
     "next": "14.0.4",
     "next-themes": "^0.2.1",
@@ -31,10 +32,12 @@
     "react-hook-form": "^7.51.2",
     "react-icons": "^4.12.0",
     "recharts": "^2.10.4",
+    "tailwind-datepicker-react": "^1.4.3",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",
-    "zustand": "^4.4.7"
+    "zustand": "^4.4.7",
+    "next-auth": "^4.24.4"
   },
   "devDependencies": {
     "@types/node": "^20",
