@@ -1,5 +1,5 @@
 import { Karla } from 'next/font/google'
-import './globals.css'
+import '../globals.css'
 import Header  from '@/components/header';
 import {SideBar} from '@/components/side'
 import PageWrapper from '@/components/pagewrapper';
