@@ -73,7 +73,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
             },
             {
                 title: 'Logout',
-                path: '/login',
+                path: '/',
                 icon: <BsUpload size={20} />,
             }
         ]
