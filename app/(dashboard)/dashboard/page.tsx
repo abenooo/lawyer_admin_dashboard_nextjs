@@ -1,130 +1,95 @@
+"use client"
+import React, { useEffect, useState } from "react";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card";
-  import { Overview } from "../../components/overview";
-  import { RecentSales } from "../../components/recent-sales";
-  import { redirect } from "next/navigation";
-  export default function Home() {
-    // redirect('/login');
-    return (
-      <>
-        <h2 className="text-3xl font-bold tracking-tight my-4">Dashboard</h2>
-  
-        <div className="flex-1 space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Category
-                </CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">15</div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-  
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total News</CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">3</div>
-                <p className="text-xs text-muted-foreground">
-                  +180.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total blog</CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <rect width="20" height="14" x="2" y="5" rx="2" />
-                  <path d="M2 10h20" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">12</div>
-                <p className="text-xs text-muted-foreground">
-                  +19% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total user</CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">3</div>
-                <p className="text-xs text-muted-foreground">1 since last hour</p>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-7">
-            <Card className="lg:col-span-4">
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <Overview />
-              </CardContent>
-            </Card>
-          </div>
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Overview } from "../../components/overview";
+import { RecentSales } from "../../components/recent-sales";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+
+export default function Home() {
+  const [totalNews, setTotalNews] = useState(0);
+  const [totalBlogs, setTotalBlogs] = useState(0);
+  const [totalNewsCategories, setTotalNewsCategories] = useState(0);
+  const [totalBlogCategories, setTotalBlogCategories] = useState(0);
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const newsResponse = await fetch('https://vgf59b03-5001.uks1.devtunnels.ms/api/news');
+        const blogsResponse = await fetch('https://vgf59b03-5001.uks1.devtunnels.ms/api/blog');
+        const newsCategoryResponse = await fetch('https://vgf59b03-5001.uks1.devtunnels.ms/api/newsCategory');
+        const blogCategoryResponse = await fetch('https://vgf59b03-5001.uks1.devtunnels.ms/api/blogCategory');
+
+        const newsData = await newsResponse.json();
+        const blogsData = await blogsResponse.json();
+        const newsCategoryData = await newsCategoryResponse.json();
+        const blogCategoryData = await blogCategoryResponse.json();
+
+        setTotalNews(newsData.length);
+        setTotalBlogs(blogsData.length);
+        setTotalNewsCategories(newsCategoryData.length);
+        setTotalBlogCategories(blogCategoryData.length);
+      } catch (error) {
+        console.error("Failed to fetch counts:", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
+  return (
+    <>
+      <h2 className="text-3xl font-bold tracking-tight my-4">Dashboard</h2>
+      <div className="flex-1 space-y-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total News</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalNews}</div>
+              <Link href="/news">News Details</Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Blogs</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalBlogs}</div>
+              <Link href="/blog">Blog Details</Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total News Categories</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalNewsCategories}</div>
+              <Link href="/blog">Total News Categories</Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Blog Categories</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalBlogCategories}</div>
+              <Link href="/blog">Total Blog Categories</Link>
+            </CardContent>
+          </Card>
         </div>
-      </>
-    );
-  }
-  
+        {/* Additional components like Overview can be added here */}
+        <Overview />
+      </div>
+    </>
+  );
+}
