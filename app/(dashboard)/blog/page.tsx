@@ -3,33 +3,12 @@ import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
   TableHeader,
   TableRow,
+  TableCell,
+  TableHead,
 } from "@/components/ui/table";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 
 interface Blog {
   _id: string;
@@ -42,11 +21,13 @@ interface Blog {
   __v: number;
 }
 
+const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Updated Base URL
+
 const fetchBlogs = async (): Promise<Blog[]> => {
   try {
-    const response = await fetch("https://lawyerpw.onrender.com/api/blog");
+    const response = await fetch(`${baseUrl}/api/blog`);
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error(`Failed to fetch data: ${response.status}`);
     }
     return response.json();
   } catch (error) {
@@ -55,7 +36,7 @@ const fetchBlogs = async (): Promise<Blog[]> => {
   }
 };
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
@@ -63,58 +44,41 @@ const page: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Image</TableHead>
-            <TableHead className="text-right">Operations</TableHead>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">ID</TableHead>
+          <TableHead>Title</TableHead>
+          <TableHead>Description</TableHead>
+          <TableHead>Category</TableHead>
+          <TableHead>Date</TableHead>
+          <TableHead>Image</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {blogs.map((blog, index) => (
+          <TableRow key={blog._id}>
+            <TableCell>{index + 1}</TableCell>
+            <TableCell>{blog.BlogTitle}</TableCell>
+            <TableCell>{blog.BlogDescription}</TableCell>
+            <TableCell>{blog.BlogCategory}</TableCell>
+            <TableCell>
+              {new Date(blog.createdAt).toLocaleDateString()}
+            </TableCell>
+            <TableCell>
+              <Image
+                src={`${baseUrl}${blog.BlogImage}`}
+                alt={blog.BlogTitle}
+                width={200}
+                height={200}
+                objectFit="cover"
+              />
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {blogs.map((blog, index) => (
-            <TableRow key={blog._id}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{blog.BlogTitle}</TableCell>
-              <TableCell>{blog.BlogDescription}</TableCell>
-              <TableCell>{blog.BlogCategory}</TableCell>
-              <TableCell>{new Date(blog.createdAt).toLocaleDateString()}</TableCell>
-              {/* <TableCell>
-                <Avatar>
-                  <AvatarImage src={blog.BlogImage} />
-                  <AvatarFallback>{blog.BlogTitle[0]}</AvatarFallback>
-                </Avatar>
-              </TableCell> */}
-              {/* <TableCell className="text-right">
-                <AlertDialogTrigger className="text-red-500">
-                  Delete
-                </AlertDialogTrigger>
-                <AlertDialog>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the blog post.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell> */}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
-export default page;
+export default Page;
