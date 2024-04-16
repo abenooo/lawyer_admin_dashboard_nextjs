@@ -3,118 +3,79 @@ import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
   TableHeader,
   TableRow,
+  TableCell,
+  TableHead,
 } from "@/components/ui/table";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-interface Blog {
+interface NewsItem {
   _id: string;
   NewsTitle: string;
   NewsCategory: string;
   NewsDescription: string;
-  image: string;
+  NewsImage: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
 }
 
-const fetchBlogs = async (): Promise<Blog[]> => {
+const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Corrected Base URL
+
+const fetchNews = async (): Promise<NewsItem[]> => {
   try {
-    const response = await fetch("https://lawyerpw.onrender.com/api/news");
+    const response = await fetch(`${baseUrl}/api/news`);
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error(`Failed to fetch data: ${response.status}`);
     }
     return response.json();
   } catch (error) {
-    console.error("Error fetching blogs:", error);
+    console.error("Error fetching news:", error);
     return [];
   }
 };
 
-const page: React.FC = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+const Page: React.FC = () => {
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
 
   useEffect(() => {
-    fetchBlogs().then(setBlogs);
+    fetchNews().then(setNewsItems);
   }, []);
 
   return (
-    <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Image</TableHead>
-            <TableHead className="text-right">Operations</TableHead>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">ID</TableHead>
+          <TableHead>Title</TableHead>
+          <TableHead>Description</TableHead>
+          <TableHead>Category</TableHead>
+          <TableHead>Date</TableHead>
+          <TableHead>Image</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {newsItems.map((item, index) => (
+          <TableRow key={item._id}>
+            <TableCell>{index + 1}</TableCell>
+            <TableCell>{item.NewsTitle}</TableCell>
+            <TableCell>{item.NewsDescription}</TableCell>
+            <TableCell>{item.NewsCategory}</TableCell>
+            <TableCell>
+              {new Date(item.createdAt).toLocaleDateString()}
+            </TableCell>
+            <TableCell>
+              <img
+                src={`${baseUrl}${item.NewsImage}`}
+                alt="News"
+                style={{ width: "100px", height: "auto" }}
+              />
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {blogs.map((blog, index) => (
-            <TableRow key={blog._id}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{blog.NewsTitle}</TableCell>
-              <TableCell>{blog.NewsDescription}</TableCell>
-              <TableCell>{blog.NewsCategory}</TableCell>
-              <TableCell>{new Date(blog.createdAt).toLocaleDateString()}</TableCell>
-              {/* <TableCell>
-                <Avatar>
-                  <AvatarImage src={blog.image} />
-                  <AvatarFallback>{blog.BlogTitle[0]}</AvatarFallback>
-                </Avatar>
-              </TableCell> */}
-              {/* <TableCell className="text-right">
-                <AlertDialogTrigger className="text-red-500">
-                  Delete
-                </AlertDialogTrigger>
-                <AlertDialog>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the blog post.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell> */}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
-export default page;
+export default Page;
