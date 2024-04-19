@@ -39,6 +39,7 @@ const fetchNews = async (): Promise<NewsItem[]> => {
 const Page: React.FC = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(newsItems.length / itemsPerPage);
 
   useEffect(() => {
     fetchNews().then(setNewsItems);
@@ -46,25 +47,10 @@ const Page: React.FC = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(newsItems.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  const maxPageNumberLimit = 5;
-  const maxPageVisible = 5;
-  let pages = [];
-  if (pageNumbers.length <= maxPageVisible) {
-    pages = pageNumbers;
-  } else {
-    if (currentPage <= 3) {
-      pages = [1, 2, 3, 4, '...', pageNumbers.length];
-    } else if (currentPage > pageNumbers.length - 2) {
-      pages = [1, '...', pageNumbers.length - 3, pageNumbers.length - 2, pageNumbers.length - 1, pageNumbers.length];
-    } else {
-      pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', pageNumbers.length];
-    }
-  }
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / itemsPerPage) * itemsPerPage;
+    return new Array(totalPages).fill(1).map((_, idx) => start + idx + 1);
+  };
 
   return (
     <>
@@ -86,7 +72,9 @@ const Page: React.FC = () => {
               <TableCell>{item.NewsTitle}</TableCell>
               <TableCell>{item.NewsDescription}</TableCell>
               <TableCell>{item.NewsCategory}</TableCell>
-              <TableCell>{new Date(item.createdAt).toLocaleDateString()}</TableCell>
+              <TableCell>
+                {new Date(item.createdAt).toLocaleDateString()}
+              </TableCell>
               <TableCell>
                 <img
                   src={item.NewsImage.startsWith('http') ? item.NewsImage : `${baseUrl}${item.NewsImage}`}
@@ -98,21 +86,28 @@ const Page: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-      <nav aria-label="Page navigation example">
-        <ul className="inline-flex -space-x-px text-base h-10">
-          {pages.map((page, index) => (
-            <li key={index}>
-              {page === '...' ? (
-                <span className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{page}</span>
-              ) : (
-                <a onClick={() => paginate(page as number)} className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer">
-                  {page}
-                </a>
-              )}
-            </li>
+      <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: "8px" }}>
+          {getPaginationGroup().map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              style={{
+                width: "35px",
+                height: "35px",
+                lineHeight: "35px",
+                borderRadius: "50%",
+                backgroundColor: currentPage === number ? "#007bff" : "transparent",
+                color: currentPage === number ? "#fff" : "#007bff",
+                border: `2px solid ${currentPage === number ? "#007bff" : "#ddd"}`,
+                cursor: "pointer",
+              }}
+            >
+              {number}
+            </button>
           ))}
-        </ul>
-      </nav>
+        </div>
+      </div>
     </>
   );
 };
