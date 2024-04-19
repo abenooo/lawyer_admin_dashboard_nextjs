@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -20,7 +20,7 @@ interface NewsItem {
   __v: number;
 }
 
-const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Corrected Base URL
+const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Base URL for API calls
 
 const fetchNews = async (): Promise<NewsItem[]> => {
   try {
@@ -66,7 +66,7 @@ const Page: React.FC = () => {
             </TableCell>
             <TableCell>
               <img
-                src={`${baseUrl}${item.NewsImage}`}
+                src={item.NewsImage.startsWith('http') ? item.NewsImage : `${baseUrl}${item.NewsImage}`}
                 alt="News"
                 style={{ width: "100px", height: "auto" }}
               />
