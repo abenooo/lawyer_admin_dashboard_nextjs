@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { Bs2Circle } from "react-icons/bs";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/themes/material_blue.css"; // Ensure to import a style for flatpickr
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function BlogForm() {
   useEffect(() => {
     flatpickr("#date-picker", {
@@ -17,24 +18,30 @@ function BlogForm() {
   }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    const formData = new FormData(event.currentTarget); // Use FormData to handle file uploads and text fields
-
+    event.preventDefault();
+  
+    const formData = new FormData(event.currentTarget);
+    const blogImage = formData.get('BlogImage');
+  
+    if (blogImage instanceof File) {
+      formData.delete('BlogImage');
+      formData.append('image', blogImage);
+    }
+  
     try {
-      const response = await fetch('https://lawyerpw.onrender.com/api/blog', {
+      const response = await fetch('https://vgf59b03-5001.uks1.devtunnels.ms/api/blog', {
         method: 'POST',
-        body: formData // Send the form data directly
+        body: formData
       });
-
+  
       if (!response.ok) throw new Error('Network response was not ok.');
-
+  
       const result = await response.json();
       console.log('Success:', result);
-      alert('Blog added successfully!');
+      toast.success('Blog added successfully!'); // Display success message
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to add the blog.');
+      toast.error('Failed to add the blog.'); // Display error message
     }
   };
 
@@ -141,6 +148,7 @@ function BlogForm() {
           </button>
         </div>
       </form>
+      <ToastContainer /> {/* Add ToastContainer here */}
     </div>
   );
 }
