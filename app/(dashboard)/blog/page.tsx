@@ -8,12 +8,10 @@ import {
   TableCell,
   TableHead,
 } from "@/components/ui/table";
-import Image from "next/image";
 
-interface Blog {
+interface NewsItem {
   _id: string;
   BlogTitle: string;
-  BlogCategory: string;
   BlogDescription: string;
   BlogImage: string;
   createdAt: string;
@@ -21,9 +19,9 @@ interface Blog {
   __v: number;
 }
 
-const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Updated Base URL
+const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // Corrected Base URL
 
-const fetchBlogs = async (): Promise<Blog[]> => {
+const fetchNews = async (): Promise<NewsItem[]> => {
   try {
     const response = await fetch(`${baseUrl}/api/blog`);
     if (!response.ok) {
@@ -31,16 +29,16 @@ const fetchBlogs = async (): Promise<Blog[]> => {
     }
     return response.json();
   } catch (error) {
-    console.error("Error fetching blogs:", error);
+    console.error("Error fetching news:", error);
     return [];
   }
 };
 
 const Page: React.FC = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
 
   useEffect(() => {
-    fetchBlogs().then(setBlogs);
+    fetchNews().then(setNewsItems);
   }, []);
 
   return (
@@ -56,24 +54,29 @@ const Page: React.FC = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {blogs.map((blog, index) => (
-          <TableRow key={blog._id}>
+        {newsItems.map((item, index) => (
+          <TableRow key={item._id}>
             <TableCell>{index + 1}</TableCell>
-            <TableCell>{blog.BlogTitle}</TableCell>
-            <TableCell>{blog.BlogDescription}</TableCell>
-            <TableCell>{blog.BlogCategory}</TableCell>
+            <TableCell>{item.BlogTitle}</TableCell>
+            <TableCell>{item.BlogDescription}</TableCell>
+            <TableCell>{item.BlogTitle}</TableCell>
             <TableCell>
-              {new Date(blog.createdAt).toLocaleDateString()}
+              {new Date(item.createdAt).toLocaleDateString()}
             </TableCell>
-            <TableCell>
-              <Image
-                src={`${baseUrl}${blog.BlogImage}`}
-                alt={blog.BlogTitle}
-                width={200}
-                height={200}
-                objectFit="cover"
+            {/* <TableCell>
+              <img
+                src={`${baseUrl}${item.BlogImage}`}
+                alt="News"
+                style={{ width: "100px", height: "auto" }}
               />
-            </TableCell>
+            </TableCell> */}
+            <TableCell>
+  <img
+    src={new URL(item.BlogImage, baseUrl).href}
+    alt="News"
+    style={{ width: "100px", height: "auto" }}
+  />
+</TableCell>
           </TableRow>
         ))}
       </TableBody>
