@@ -30,7 +30,7 @@ interface NewsCategory {
   __v: number;
 }
 
-const baseUrl = "https://lawyerpw.onrender.com"; // API base URL
+const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms"; // API base URL
 
 const Page = () => {
   const [categories, setCategories] = useState<NewsCategory[]>([]);
