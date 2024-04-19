@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -19,109 +20,102 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const page = () => {
+interface NewsCategory {
+  _id: string;
+  NewsCategoryName?: string;
+  NewsCategoryDescription?: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+const baseUrl = "https://lawyerpw.onrender.com"; // API base URL
+
+const Page = () => {
+  const [categories, setCategories] = useState<NewsCategory[]>([]);
+
+  useEffect(() => {
+    fetchNewsCategories();
+  }, []);
+
+  const fetchNewsCategories = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/api/newsCategory`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch categories: ${response.status}`);
+      }
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error("Error fetching news categories:", error);
+    }
+  };
+
+  const handleDelete = async (categoryId: string) => {
+    try {
+      const deleteUrl = `${baseUrl}/api/newsCategory/${categoryId}`; // Assuming the API uses path parameters for DELETE
+      const response = await fetch(deleteUrl, {
+        method: 'DELETE'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete the category');
+      }
+      alert('Category deleted successfully!');
+      fetchNewsCategories(); // Refresh the list after deletion
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      alert('Failed to delete category.');
+    }
+  };
+
   return (
     <Table>
-      <TableCaption>A list of your recent news.</TableCaption>
+      <TableCaption>A list of your recent news categories.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Number</TableHead>
-          <TableHead>Title</TableHead>
+          <TableHead>Category Name</TableHead>
           <TableHead>Description</TableHead>
           <TableHead>Date</TableHead>
-          <TableHead className="text-right">Operation</TableHead>
+          <TableHead className="text-right">Operations</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody className="border-b border-natural-200 transition duration-300 ease-in-out">
-        <TableRow>
-          <TableCell className="font-medium">1</TableCell>
-          <TableCell>Civil low</TableCell>
-          <TableCell>Talks about civil low in this blog</TableCell>
-          <TableCell>01/02/2024</TableCell>
-          <TableCell className="text-right">
-            <AlertDialog>
-              <AlertDialogTrigger className="text-red-500">
-                Delete
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </TableCell>
-          <TableCell>View</TableCell>
-          <TableCell>Edit</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">2</TableCell>
-          <TableCell>Civil low</TableCell>
-          <TableCell>Talks about civil low in this blog</TableCell>
-          <TableCell>01/02/2024</TableCell>
-          <TableCell className="text-right">
-            <AlertDialog>
-              <AlertDialogTrigger className="text-red-500">
-                Delete
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </TableCell>
-          <TableCell>View</TableCell>
-          <TableCell>Edit</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">3</TableCell>
-          <TableCell>Civil low</TableCell>
-          <TableCell>Talks about civil low in this blog</TableCell>
-          <TableCell>01/02/2024</TableCell>
-          <TableCell className="text-right">
-            <AlertDialog>
-              <AlertDialogTrigger className="text-red-500">
-                Delete
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </TableCell>
-          <TableCell>View</TableCell>
-          <TableCell>Edit</TableCell>
-        </TableRow>
+      <TableBody>
+        {categories.map((category, index) => (
+          <TableRow key={category._id}>
+            <TableCell className="font-medium">{index + 1}</TableCell>
+            <TableCell>{category.NewsCategoryName || "Unnamed Category"}</TableCell>
+            <TableCell>{category.NewsCategoryDescription || "No description provided"}</TableCell>
+            <TableCell>{new Date(category.createdAt).toLocaleDateString()}</TableCell>
+            <TableCell className="text-right">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="text-red-500">Delete</button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete the category.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel asChild>
+                      <button>Cancel</button>
+                    </AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <button onClick={() => handleDelete(category._id)}>Continue</button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
 };
 
-export default page;
+export default Page;
