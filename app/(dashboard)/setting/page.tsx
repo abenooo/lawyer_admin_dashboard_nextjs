@@ -3,9 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, ControllerRenderProps } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const profileFormSchema = z.object({
   Id: z.string().min(1, { message: "User ID is required" }),
@@ -21,7 +22,6 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function Page() {
-  const { toast } = useToast();
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -32,22 +32,13 @@ export default function Page() {
     const { currentPassword, newPassword, confirmNewPassword, Id } = data;
 
     if (newPassword !== confirmNewPassword) {
-      toast({
-        title: "Password mismatch",
-        description: "New password and confirm password do not match",
-        variant: "destructive",
-      });
+      toast.error("New password and confirm password do not match");
       return;
     }
 
-    const authToken = sessionStorage.getItem('authToken');  // Retrieve the auth token from sessionStorage
-    console.log("authlog" + authToken)
+    const authToken = sessionStorage.getItem('authToken');
     if (!authToken) {
-      toast({
-        title: "Authentication Error",
-        description: "No authentication token found. Please log in again.",
-        variant: "destructive",
-      });
+      toast.error("No authentication token found. Please log in again.");
       return;
     }
 
@@ -56,7 +47,7 @@ export default function Page() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken}`  // Use the token in the Authorization header
+          "Authorization": `Bearer ${authToken}`
         },
         body: JSON.stringify({
           Id,
@@ -68,86 +59,78 @@ export default function Page() {
       const responseData = await response.json();
 
       if (response.ok) {
-        toast({
-          title: "Password Updated",
-          description: "Your password has been updated successfully.",
-        });
+        toast.success("Your password has been updated successfully.");
       } else {
-        toast({
-          title: "Error Updating Password",
-          description: responseData.message || "An error occurred while updating the password.",
-          variant: "destructive",
-        });
+        toast.error(responseData.message || "An error occurred while updating the password.");
       }
     } catch (error) {
       console.error("Error updating password:", error);
-      toast({
-        title: "Network Error",
-        description: "An error occurred while updating the password.",
-        variant: "destructive",
-      });
+      toast.error("An error occurred while updating the password.");
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="currentPassword"
-          render={({
-            field,
-          }: {
-            field: ControllerRenderProps<ProfileFormValues, "currentPassword">;
-          }) => (
-            <FormItem>
-              <FormLabel>Current Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="newPassword"
-          render={({
-            field,
-          }: {
-            field: ControllerRenderProps<ProfileFormValues, "newPassword">;
-          }) => (
-            <FormItem>
-              <FormLabel>New Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmNewPassword"
-          render={({
-            field,
-          }: {
-            field: ControllerRenderProps<
-              ProfileFormValues,
-              "confirmNewPassword"
-            >;
-          }) => (
-            <FormItem>
-              <FormLabel>Confirm New Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Update Password</Button>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="currentPassword"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<ProfileFormValues, "currentPassword">;
+            }) => (
+              <FormItem>
+                <FormLabel>Current Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="newPassword"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<ProfileFormValues, "newPassword">;
+            }) => (
+              <FormItem>
+                <FormLabel>New Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmNewPassword"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                ProfileFormValues,
+                "confirmNewPassword"
+              >;
+            }) => (
+              <FormItem>
+                <FormLabel>Confirm New Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Update Password</Button>
+        </form>
+      </Form>
+      <ToastContainer />
+    </>
   );
 }
