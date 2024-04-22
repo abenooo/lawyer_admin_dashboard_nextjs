@@ -20,7 +20,7 @@ interface NewsItem {
 }
 
 const baseUrl = "https://vgf59b03-5001.uks1.devtunnels.ms";
-const itemsPerPage = 5;
+const itemsPerPage = 10;
 
 const fetchNews = async (): Promise<NewsItem[]> => {
   try {
