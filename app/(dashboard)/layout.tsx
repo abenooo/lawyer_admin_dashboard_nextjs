@@ -5,7 +5,7 @@ import {SideBar} from '@/components/side'
 import PageWrapper from '@/components/pagewrapper';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Metadata } from 'next';
-
+import { UserProvider } from "@/hooks/userContext"; // Adjust the import path as necessary
 const karla = Karla({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
   subsets: ['latin'],
@@ -22,6 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <UserProvider>
     <html lang="en" suppressHydrationWarning>
       <body className={karla.className + ' h-screen overflow-hidden'}>
         <ThemeProvider
@@ -41,5 +42,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+    </UserProvider>
   )
 }
