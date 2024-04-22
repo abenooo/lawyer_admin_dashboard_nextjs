@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, FormEvent } from 'react';
 import { Bs2Circle } from 'react-icons/bs';
 import { toast, ToastContainer } from 'react-toastify';
