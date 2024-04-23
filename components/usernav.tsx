@@ -3,8 +3,20 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation';
 export function UserNav() {
+    const router = useRouter();
+
+    const handleLogout = () => {
+        // Clear the session storage or any other token storage
+        sessionStorage.removeItem('authToken');
+        sessionStorage.removeItem('userId');
+
+        // Redirect to the login page
+        router.push('/');
+        console.log("Redirect to login  page")
+    };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -27,16 +39,16 @@ export function UserNav() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                      <Link href="profile">Profile</Link>  
+                      <Link href="/profile">Profile</Link>  
                         {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                       <Link href="setting">Settings</Link> 
+                       <Link href="/setting">Settings</Link> 
                         {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                     <Link href="">Log out</Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>
