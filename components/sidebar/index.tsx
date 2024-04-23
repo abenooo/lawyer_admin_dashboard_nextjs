@@ -93,7 +93,7 @@ export function Sidebar({ className, setMenu }: any) {
         <div className="px-3 py-2">
           <div className="flex justify-between ">
             <h2 className="mb-2 h-16 px-4 md:font-bold whitespace-nowrap lg:text-lg font-semibold tracking-tight">
-              Walia Jobs
+            Lawyer Solomon
             </h2>
             <svg
               xmlns="http://www.w3.org/2000/svg"
